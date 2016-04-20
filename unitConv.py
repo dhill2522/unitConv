@@ -2,7 +2,7 @@
 """
 Created on Mar 16 2016
 
-@author: dhill2522
+@author: dhill2522 & jshammon
 
 Unit Conversions Library
 
