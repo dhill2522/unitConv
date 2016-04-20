@@ -19,6 +19,13 @@ massOz = ["oz", "ounce", "ounces", "ozs"]
 massTon = ["ton", "tons"]
 massUnits = massKg + massG + massMton + massLb + massOz + massTon
 
+# Definitions for units of length
+lengthM = ["m", "meter", "meters"]
+lengthIn = ["in", "inch", "inches"]
+lengthFt = ["ft", "foot", "feet"]
+lengthYd = ["yd", "yds", "yard", "yards"]
+lengthMile = ["mi", "mil", "mile", "miles"]
+lengthUnits = lengthM + lengthIn + lengthFt + lengthYd + lengthMile
 
 # Conversions for mass
 def mass(value, unitsInitial, unitsFinal):
