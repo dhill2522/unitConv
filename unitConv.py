@@ -5,6 +5,11 @@ Created on Mar 16 2016
 @author: dhill2522
 
 Unit Conversions Library
+
+Notes:
+Should add support for centi, mili,...
+Could branch unit definitions to an appendix file so they could also be used elsewhere
+
 """
 massKg = ["kg", "kilgrams", "kilogram", "kilos", "kilo"]
 massG = ["g", "gram", "grams"]
