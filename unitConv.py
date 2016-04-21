@@ -25,11 +25,15 @@ massUnits = massKg + massG + massMton + massLb + massOz + massTon
 
 # Definitions for units of length
 lengthM = ["m", "meter", "meters"]
+lengthCm = ['cm','centimeter','centimeters']
+lengthMm = ['mm','milimeter','milimeters']
+lengthMicron = ['micron','microns','mcrn','mcrns','micrometer','micrometers']
+lengthAng = ['angstrom','angstroms','A']
 lengthIn = ["in", "inch", "inches"]
 lengthFt = ["ft", "foot", "feet"]
 lengthYd = ["yd", "yds", "yard", "yards"]
 lengthMile = ["mi", "mil", "mile", "miles"]
-lengthUnits = lengthM + lengthIn + lengthFt + lengthYd + lengthMile
+lengthUnits = lengthM + lengthCm + lengthMm + lengthMicron + lengthAng + lengthIn + lengthFt + lengthYd + lengthMile
 
 # Definitions for units of volume
 volM = ["m^3", "m3", "meters cubed", "meter cubed", "cubic meters", "cubic meter"]
@@ -105,52 +109,60 @@ def mass(number, given, desired):
     return final
 # Conversions for length
 def length(given,desired,number):
-    if given in ['m','meters','meter']:
+    if given in lengthM:
         base = number
-    elif given in ['cm','centimeter','centimeters']:
+    elif given in lengthCm:
         base = number/100
-    elif given in ['mm','milimeter','milimeters']:
+    elif given in lengthMm:
         base = number/1000
-    elif given in ['micron','microns','mcrn','mcrns','micrometer','micrometers']:
+    elif given in lengthMicron:
         base = number/(10E6)
-    elif given in ['angstrom','angstroms','A']:
+    elif given in lengthAng:
         base = number/(10E10)
-    elif given in ['in','inch','inches']:
+    elif given in lengthIn:
         base = number/39.3700787402
-    elif given in ['ft','feet']:
+    elif given in lengthFt:
         base = number/3.28083989501
-    elif given in ['yd','yds','yard','yards']:
+    elif given in lengthYd:
         base = number/1.09361329834
-    elif given in ['mile','miles']:
+    elif given in lengthMile:
         base = number/0.000621371192237
     else:
-        base = "error"
-    if desired in ['m','meters','meter']:
+        return "Error, initial units not recognized!"
+    if desired in lengthM:
         final = base
-    elif desired in ['cm','centimeter','centimeters']:
+    elif desired in lengthCm:
         final = base*100
-    elif desired in ['mm','milimeter','milimeters']:
+    elif desired in lengthMm:
         final = base*1000
-    elif desired in ['micron','microns','mcrn','mcrns','micrometer','micrometers']:
+    elif desired in lengthMicron:
         final = base*(10E6)
-    elif desired in ['angstrom','angstroms','A']:
+    elif desired in lengthAng:
         final = base*(10E10)
-    elif desired in ['in','inch','inches']:
+    elif desired in lengthIn:
         final = base*39.3700787402
-    elif desired in ['ft','feet']:
+    elif desired in lengthFt:
         final = base*3.28083989501
-    elif desired in ['yd','yds','yard','yards']:
+    elif desired in lengthYd:
         final = base*1.09361329834
-    elif desired in ['mile','miles']:
+    elif desired in lengthMile:
         final = base*0.000621371192237
     else:
-        final = "error"
+        return "Error, final units not recognized!"
     return final
 
 # Conversions for volume
+
+
 # Conversions for force
+
+
 # Conversions for pressure
+
+
 # Conversions for energy
+
+
 # Conversions for power
 
 
@@ -158,6 +170,17 @@ def convert(value, unitsInitial, unitsFinal):
     # This function combine the above functions to allow for simpler use.
     unitsInitial=unitsInitial.lower()
     unitsFinal=unitsFinal.lower()
-    if (unitsInitial massUnits):
-        x=0
-        # send to mass
+    if (unitsInitial in massUnits):
+        convertedVal = mass(value, unitsInitial, unitsFinal)
+    if (unitsInitial in lengthUnits):
+        convertedVal = length(value, unitsInitial, unitsFinal)
+    if (unitsInitial in volumeUnits):
+        convertedVal = volume(value, unitsInitial, unitsFinal)
+    if (unitsInitial in forceUnits):
+        convertedVal = force(value, unitsInitial, unitsFinal)
+    if (unitsInitial in pressUnits):
+        convertedVal = press(value, unitsInitial, unitsFinal)
+    if (unitsInitial in energyUnits):
+        convertedVal = energy(value, unitsInitial, unitsFinal)
+    if (unitsInitial in powerUnits):
+        convertedVal = power(value, unitsInitial, unitsFinal)
