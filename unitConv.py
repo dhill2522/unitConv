@@ -36,15 +36,19 @@ lengthMile = ["mi", "mil", "mile", "miles"]
 lengthUnits = lengthM + lengthCm + lengthMm + lengthMicron + lengthAng + lengthIn + lengthFt + lengthYd + lengthMile
 
 # Definitions for units of volume
-volM = ["m^3", "m3", "meters cubed", "meter cubed", "cubic meters", "cubic meter"]
+volM = ['m^3','meter^3','meters^3','cubic meter','cubic meters','cubicmeter','cubicmeters']
 volL = ["l", "liter", "liters", "litre", "litres"]
-volFt = ["ft^3", "ft3", "foot cubed", "feet cubed", "cubic foot", "cubic feet"]
+volCm = ['cm^3','centimeter^3','centimeters^3','cubic centimeter','cubic centimeters','cubiccentimeter','cubiccentimeters']
+volMm = ['mL','ml','miliLiter','miliLiters','mililiter','mililiters']
+volFt = ["ft^3", "ft3", "feet^3", "foot cubed", "feet cubed", "cubic foot", "cubic feet"]
+volIgal = ['imperial gallons','imperialgallons','igal','IGal','Igal','iGal']
 volGal = ["gal", "gals", "gallon", "gallons"]
 volQt = ["qt", "qts", "quart", "quarts"]
-volUnits = volM + volL + volFt + volGal + volQt
+volIn = ['in^3','inches^3','cubic inch','cubicinch','cubic inches','cubicinches']
+volUnits = volM + volL + volCm + volMm + volFt + volIgal + volGal + volQt + volIn
 
 # Definitions for units of force
-forceN = ["n", "newton", "newtons"]
+forceN = ["n", "newton", "newtons", ]
 forceDynes = ["dynes", "dyne"]
 forceLbf = ["lbf", "pound-force", "pounds-force"]
 forceUnits = forceN + forceDynes + forceLbf
@@ -107,6 +111,7 @@ def mass(number, given, desired):
     else:
         return "Error, final units not recognized!"
     return final
+
 # Conversions for length
 def length(given,desired,number):
     if given in lengthM:
@@ -152,7 +157,48 @@ def length(given,desired,number):
     return final
 
 # Conversions for volume
-
+def Vcon(given,desired,number):
+    if given in volM:
+        base = number
+    elif given in volL:
+        base = number/1000
+    elif given in volCm:
+        base = number/(10E6)
+    elif given in volMm:
+        base = number/(10E6)
+    elif given in volFt:
+        base = number/35.3146667215
+    elif given in volIgal:
+        base = number/219.969248299
+    elif given in volGal:
+        base = number/264.172051242
+    elif given in volQt:
+        base = (number/4)/264.172051242
+    elif given in volIn:
+        base = (number/1728)/35.3146667215
+    else:
+        base = "error"
+    if desired in volM:
+        final = base
+    elif desired in volL:
+        final = base*1000
+    elif desired in volCm:
+        final = base*(10E6)
+    elif desired in volMm:
+        final = base*(10E6)
+    elif desired in volFt:
+        final = base*35.3146667215
+    elif desired in volIgal:
+        final = base*219.969248299
+    elif desired in volGal:
+        final = base*264.172051242
+    elif desired in volQt:
+        final = (base*264.172051242)*4
+    elif desired in volIn:
+        final = (base*35.3146667215)*1728
+    else:
+        final = "error"
+    return final
 
 # Conversions for force
 
