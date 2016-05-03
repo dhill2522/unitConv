@@ -49,35 +49,43 @@ volUnits = volM + volL + volCm + volMm + volFt + volIgal + volGal + volQt + volI
 
 # Definitions for units of force
 forceN = ["n", "newton", "newtons", ]
+forceKg = ["kg*m/s^2"]
 forceDynes = ["dynes", "dyne"]
-forceLbf = ["lbf", "pound-force", "pounds-force"]
-forceUnits = forceN + forceDynes + forceLbf
+forceG = ["g*cm/s^2"]
+forceLbf = ["lbf", "pound-force", "pounds-force", "pound force", "pounds force"]
+forceLbm = ["lbm*ft/s^2"]
+forceUnits = forceN + forceKg + forceDynes + forceG + forceLbf + forceLbm
 
 # Definitions for units of pressure
 pressAtm = ["atm", "atms", "atmophere", "atmospheres"]
-pressPa = ["pa", "pas", "pascal", "pascals"]
-pressBar = ["bar"]
-pressMmHg = ["mmhg", "milimeters of mercury"]
-pressTorr = ["torr"]
+pressPa = ["N/m^2", "pa", "pas", "pascal", "pascals"]
+pressKpa = ['kpa','kilopascal','kilopascals']
+pressBar = ["bar", "bars"]
+pressD = ['dynes/cm^2','dyne/cm^2']
+pressMmHg = ["mmhg", "mm hg", "torr", "milimeters of mercury"]
 pressMh2o = ["m h2o", "mh2o", "meter of water", "meters of water"]
 pressPsi = ["psi", "lb/in^2", "lbs/in^2"]
 pressFth2o = ["ft h2o", "fth2o", "foot of water", "feet of water"]
-pressInhg = ["in hg", "in. hg", "inch of mercury", "inches of mercury"]
-pressUnits = pressAtm + pressPa + pressBar + pressMmHg + pressTorr + pressMh2o + pressPsi + pressFth2o + pressInhg
+pressInhg = ["in hg", "in. hg", "inhg", "inch of mercury", "inches of mercury"]
+pressUnits = pressAtm + pressPa + pressKpa + pressBar + pressD + pressMmHg + pressMh2o + pressPsi + pressFth2o + pressInhg
 
 # Definitions for units of energy
-energyJ = ["j", "js", "joule", "joules"]
-energyErg = ["erg", "ergs"]
-energyKwhr = ["kwhr", "kwhrs", "kw*hr", "kw*hrs"]
+energyJ = ["j", "js", "joule", "joules", "n*m"]
+energyErg = ["erg", "ergs", "dyne*cm"]
+energyKj = ["kj", "kilojoule", "kilojoules"]
+energyKwhr = ["kwhr", "kwhrs", "kw*hr", "kw*hrs", "kilowatt hour", "kw hr", "kw hour", "kilowatt hr"]
 energyCal = ["cal", "cals", "calories", "calorie"]
-energyFtlbf = ["ftlbf", "ft*lbf"]
-energyBtu = ["btu", "btus"]
-energyUnits = energyJ + energyErg + energyKwhr + energyCal + energyFtlbf + energyBtu
+energyFtlbf = ["ftlbf", "ft*lbf", "foot pound", "ft pound", "foot pounds", "ft pounds", "ft-lbf"]
+energyBtu = ["btu", "btus", "british thermal unit", "british thermal units"]
+energyUnits = energyJ + energyErg + energyKj + energyKwhr + energyCal + energyFtlbf + energyBtu
 
 # Definitions for units of power
-powerW = ["w", "watt", "watts"]
-powerHp = ["hp", "horsepower"]
-powerUnits = powerW + powerHp
+powerW = ["w", "watt", "watts", "j/s"]
+powerCal = ["cal/s", "calories/second"]
+powerFt = ['ft*lbf/s','foot pounds/second','foot pounds/s','ft pounds/s','ft pounds/second']
+powerBtu = ['btu/s','british thermal units/second','british thermal units/second','british Thermal units/s']
+powerHp = ["hp", "horsepower", "horse power"]
+powerUnits = powerW + powerC + powerFt + powerBtu + powerHp
 
 # Conversions for mass
 def mass(number, given, desired):
@@ -113,7 +121,7 @@ def mass(number, given, desired):
     return final
 
 # Conversions for length
-def length(given,desired,number):
+def length(number, given, desired):
     if given in lengthM:
         base = number
     elif given in lengthCm:
@@ -157,7 +165,7 @@ def length(given,desired,number):
     return final
 
 # Conversions for volume
-def Vcon(given,desired,number):
+def volume(number, given, desired):
     if given in volM:
         base = number
     elif given in volL:
@@ -201,16 +209,148 @@ def Vcon(given,desired,number):
     return final
 
 # Conversions for force
-
+def force(number, given, desired):
+    if given in forceN:
+        base = number
+    elif given in forceKg:
+        base = number
+    elif given in forceDynes:
+        base = number/(10E5)
+    elif given in forceG:
+        base = number/(10E5)
+    elif given in forceLbf:
+        base = number/0.22480894244323335
+    elif given in forceLbm:
+        base = (number/32.174)/0.22480894244323335
+    else:
+        base = "error"
+    if desired in forceN]:
+        final = base
+    elif desired in forceKg:
+        final = base
+    elif desired in forceDynes:
+        final = base*(10E5)
+    elif desired in forceG:
+        final = base*(10E5)
+    elif desired in forceLbf:
+        final = base*0.22480894244323335
+    elif desired in forceLbm:
+        final = (base*32.174)*0.22480894244323335
+    else:
+        final = "error"
+    return final
 
 # Conversions for pressure
-
+def pressure(number, given, desired):
+    if given in pressAtm:
+        base = number
+    elif given in pressPa:
+        base = number/101325.01
+    elif given in pressKpa:
+        base = number/101.32501
+    elif given in pressBar:
+        base = number/1.0132501
+    elif given in pressD:
+        base = number/1013250.1
+    elif given in pressMmHg:
+        base = number/759.999952
+    elif given in pressMh2o:
+        base = number/10.332275548
+    elif given in pressPsi:
+        base = number/14.695950254
+    elif given in pressInhg:
+        base = number/29.9212583
+    elif given in pressFth2o:
+        base = number/33.89854205
+    else:
+        base = "error"
+    if desired in pressAtm:
+        final = base
+    elif desired in pressPa:
+        final = base*101325.01
+    elif desired in pressKpa:
+        final = base*101.32501
+    elif desired in pressBar:
+        final = base*1.0132501
+    elif desired in pressD:
+        final = base*1013250.1
+    elif desired in pressMmHg:
+        final = base*759.999952
+    elif desired in pressMh2o:
+        final = base*10.332275548
+    elif desired in pressPsi:
+        final = base*14.695950254
+    elif desired in pressInhg:
+        final = base*29.9212583
+    elif desired in pressFth2o:
+        final = base*33.89854205
+    else:
+        final = "error"
+    return final
 
 # Conversions for energy
-
+def energy(number, given, desired):
+    if given in energyJ:
+        base = number
+    elif given in energyErg:
+        base = number/10000000
+    elif given in energyKj:
+        base = number/.001
+    elif given in energyKwhr:
+        base = number/(2.777777777778E-7)
+    elif given in energyCal:
+        base = number/0.2388458966275
+    elif given in energyFtlbf:
+        base = number/0.7375621492773
+    elif given in energyBtu:
+        base = number/0.0009478169879134
+    else:
+        base = "error"
+    if desired in energyJ:
+        final = base
+    elif desired in energyErg:
+        final = base*10000000
+    elif desired in energyKj:
+        final = base*.001
+    elif desired in energyKwhr:
+        final = base*(2.777777777778E-7)
+    elif desired in energyCal:
+        final = base*0.2388458966275
+    elif desired in energyFtlbf:
+        final = base*0.7375621492773
+    elif desired in energyBtu:
+        final = base*0.0009478169879134
+    else:
+        final = "error"
+    return final
 
 # Conversions for power
-
+def power(number, given, desired):
+    if given in powerW:
+        base = number
+    elif given in powerCal:
+        base = number/0.2388458966275
+    elif given in powerFt:
+        base = number/0.7375621492773
+    elif given in powerBtu:
+        base = number/0.0009478169879134
+    elif given in powerHp:
+        base = number/0.001341022089595
+    else:
+        base = "error"
+    if desired in powerW:
+        final = base
+    elif desired in powerCal:
+        final = base*0.2388458966275
+    elif desired in powerFt:
+        final = base*0.7375621492773
+    elif desired in powerBtu:
+        final = base*0.0009478169879134
+    elif desired in powerHp:
+        final = base*0.001341022089595
+    else:
+        final = "error"
+    return final
 
 def convert(value, unitsInitial, unitsFinal):
     # This function combine the above functions to allow for simpler use.
