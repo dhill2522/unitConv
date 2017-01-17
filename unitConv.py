@@ -45,7 +45,7 @@ volIgal = ['imperial gallons','imperialgallons','igal','IGal','Igal','iGal']
 volGal = ["gal", "gals", "gallon", "gallons"]
 volQt = ["qt", "qts", "quart", "quarts"]
 volIn = ['in^3','inches^3','cubic inch','cubicinch','cubic inches','cubicinches']
-volUnits = volM + volL + volCm + volMm + volFt + volIgal + volGal + volQt + volIn
+volumeUnits = volM + volL + volCm + volMm + volFt + volIgal + volGal + volQt + volIn
 
 # Definitions for units of force
 forceN = ["n", "newton", "newtons", ]
@@ -85,7 +85,7 @@ powerCal = ["cal/s", "calories/second"]
 powerFt = ['ft*lbf/s','foot pounds/second','foot pounds/s','ft pounds/s','ft pounds/second']
 powerBtu = ['btu/s','british thermal units/second','british thermal units/second','british Thermal units/s']
 powerHp = ["hp", "horsepower", "horse power"]
-powerUnits = powerW + powerC + powerFt + powerBtu + powerHp
+powerUnits = powerW + powerCal + powerFt + powerBtu + powerHp
 
 # Conversions for mass
 def mass(number, given, desired):
@@ -224,7 +224,7 @@ def force(number, given, desired):
         base = (number/32.174)/0.22480894244323335
     else:
         base = "error"
-    if desired in forceN]:
+    if desired in forceN:
         final = base
     elif desired in forceKg:
         final = base
@@ -365,8 +365,9 @@ def convert(value, unitsInitial, unitsFinal):
     if (unitsInitial in forceUnits):
         convertedVal = force(value, unitsInitial, unitsFinal)
     if (unitsInitial in pressUnits):
-        convertedVal = press(value, unitsInitial, unitsFinal)
+        convertedVal = pressure(value, unitsInitial, unitsFinal)
     if (unitsInitial in energyUnits):
         convertedVal = energy(value, unitsInitial, unitsFinal)
     if (unitsInitial in powerUnits):
         convertedVal = power(value, unitsInitial, unitsFinal)
+    return convertedVal
