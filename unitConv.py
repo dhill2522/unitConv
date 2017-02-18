@@ -87,6 +87,13 @@ powerBtu = ['btu/s','british thermal units/second','british thermal units/second
 powerHp = ["hp", "horsepower", "horse power"]
 powerUnits = powerW + powerCal + powerFt + powerBtu + powerHp
 
+# Definitions for units of Temperature
+tempK = ['k', 'kelvin']
+tempC = ['c', 'celcius']
+tempF = ['f', 'farenheit']
+tempR = ['r', 'rankine']
+tempUnits = tempK + tempC + tempF + tempR
+
 # Conversions for mass
 def mass(number, given, desired):
     # Convert given value to kg and then to the desired units
@@ -352,6 +359,30 @@ def power(number, given, desired):
         final = "error"
     return final
 
+# Conversions for temperature
+def temp(number, given, desired):
+    if given in tempK:
+        base = number
+    elif given in tempC:
+        base = number + 273.15
+    elif given in tempR:
+        base = number * 5/9
+    elif base in tempF:
+        base = (number + 459.67) * (5/9)
+    else:
+        base = 'error'
+    if desired in tempK:
+        final = base
+    elif desired in tempC:
+        final = base - 273.15
+    elif desired in tempR:
+        final = base * (9/5)
+    elif desired in tempF:
+        final = base * (9/5) - 459.67
+    else:
+        final = 'error'
+    return final
+
 def convert(value, unitsInitial, unitsFinal):
     # This function combine the above functions to allow for simpler use.
     unitsInitial=unitsInitial.lower()
@@ -370,4 +401,6 @@ def convert(value, unitsInitial, unitsFinal):
         convertedVal = energy(value, unitsInitial, unitsFinal)
     if (unitsInitial in powerUnits):
         convertedVal = power(value, unitsInitial, unitsFinal)
+    if (unitsInitial in tempUnits):
+        convertedVal = temp(value, unitsInitial, unitsFinal)
     return convertedVal
