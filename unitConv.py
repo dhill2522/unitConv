@@ -389,18 +389,20 @@ def convert(value, unitsInitial, unitsFinal):
     unitsFinal=unitsFinal.lower()
     if (unitsInitial in massUnits):
         convertedVal = mass(value, unitsInitial, unitsFinal)
-    if (unitsInitial in lengthUnits):
+    elif (unitsInitial in lengthUnits):
         convertedVal = length(value, unitsInitial, unitsFinal)
-    if (unitsInitial in volumeUnits):
+    elif (unitsInitial in volumeUnits):
         convertedVal = volume(value, unitsInitial, unitsFinal)
-    if (unitsInitial in forceUnits):
+    elif (unitsInitial in forceUnits):
         convertedVal = force(value, unitsInitial, unitsFinal)
-    if (unitsInitial in pressUnits):
+    elif (unitsInitial in pressUnits):
         convertedVal = pressure(value, unitsInitial, unitsFinal)
-    if (unitsInitial in energyUnits):
+    elif (unitsInitial in energyUnits):
         convertedVal = energy(value, unitsInitial, unitsFinal)
-    if (unitsInitial in powerUnits):
+    elif (unitsInitial in powerUnits):
         convertedVal = power(value, unitsInitial, unitsFinal)
-    if (unitsInitial in tempUnits):
+    elif (unitsInitial in tempUnits):
         convertedVal = temp(value, unitsInitial, unitsFinal)
+    else:
+        print("Error. UnitConv does not recognize '" + unitsInitial+ "' as input units.")
     return convertedVal
